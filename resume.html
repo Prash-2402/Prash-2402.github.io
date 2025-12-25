@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,13 +9,14 @@
   <style>
     body {
       margin: 0;
-      padding: 40px;
+      padding: 20px;
       font-family: Inter, Arial, sans-serif;
       background: #ffffff;
       color: #111827;
     }
 
     .container {
+      padding: 10px;
       max-width: 850px;
       margin: auto;
     }
@@ -75,127 +77,124 @@
       padding: 6px 10px;
       border-radius: 6px;
       background: #f3f4f6;
-      transition: background 0.2s ease;
-    }
-
-    .skill:hover {
-      background: #e5e7eb;
     }
 
     .project {
       padding: 12px;
       border-radius: 8px;
       background: #fafafa;
-      transition: transform 0.2s ease;
-    }
-
-    .project:hover {
-      transform: translateY(-2px);
     }
 
     .muted {
       color: #6b7280;
       font-size: 13px;
     }
-    .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
 
-.photo {
-  width: 180px;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 6px;
-  border: 1px solid #e5e7eb;
-}
+    /* HEADER */
+    .header {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .photo {
+      width: 140px;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid #e5e7eb;
+    }
+
+    /* MOBILE FIX */
+    @media (max-width: 600px) {
+      .header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .photo {
+        margin-top: 10px;
+      }
+    }
   </style>
 </head>
 
 <body>
-<div class="container">
+  <div class="container">
 
-  <div class="header">
-  <div>
-    <h1>Prajwal S Hangaragi</h1>
-    <div class="sub">B.Tech – Computer Science & Engineering (AI & ML)</div>
-    <div class="contact">
-      📍 Bangalore, India · 📞 7204557247 · 📧 prajwal.s.2h@gmail.com
+    <div class="header">
+      <div>
+        <h1>Prajwal S Hangaragi</h1>
+        <div class="sub">B.Tech – Computer Science & Engineering (AI & ML)</div>
+        <div class="contact">
+          📍 Bangalore, India · 📞 7204557247 · 📧 prajwal.s.2h@gmail.com
+        </div>
+      </div>
+
+      <img src="docs/resumepic.png" alt="Prajwal S Hangaragi" class="photo">
     </div>
+
+    <hr>
+
+    <h2>Profile</h2>
+    <p>
+      Computer Science undergraduate specializing in Computer Science Engineering in AI & ML,
+      with hands-on experience building web-based developer tools, integrating automation pipelines,
+      and deploying full-stack applications. Strong interest in backend systems, intelligent tooling,
+      and scalable software solutions.
+    </p>
+
+    <h2>Technical Skills</h2>
+    <div class="skills">
+      <div class="skill">Python</div>
+      <div class="skill">FastAPI</div>
+      <div class="skill">Java</div>
+      <div class="skill">HTML</div>
+      <div class="skill">CSS</div>
+      <div class="skill">JavaScript</div>
+      <div class="skill">Git & GitHub</div>
+      <div class="skill">GitHub Actions (CI/CD)</div>
+      <div class="skill">Static Code Analysis</div>
+      <div class="skill">AI-Assisted Development</div>
+      <div class="skill">Machine Learning Fundamentals</div>
+      <div class="skill">Prompt Engineering</div>
+      <div class="skill">Deployment & Cloud Basics</div>
+    </div>
+
+    <h2>Projects</h2>
+
+    <div class="project">
+      <b>Python Code Review Tool (Web Application)</b>
+      <p class="muted">Backend · JavaScript · GitHub Actions · Deployment · Full-stack</p>
+      <ul>
+        <li>Designed and built a static code analysis tool using Python AST.</li>
+        <li>Developed a clean web interface for real-time code analysis.</li>
+        <li>Integrated GitHub Actions to automate code reviews.</li>
+        <li>Deployed as a public website with plans for expansion.</li>
+        <li>
+          <a href="https://prash-2402.github.io/code-review-tool/" target="_blank">
+            https://prash-2402.github.io/code-review-tool/
+          </a>
+        </li>
+
+      </ul>
+    </div>
+
+    <h2>Education</h2>
+    <p>
+      <b>B.Tech in Computer Science & Engineering (AI & ML)</b><br>
+      Christ University, Bangalore (Kengeri Campus)<br>
+      2024 – 2028
+    </p>
+
+    <h2>Interests</h2>
+    <p>
+      Backend Engineering · Intelligent Developer Tools · Applied AI Systems · Automation · Scalable Web Applications
+    </p>
+
   </div>
-
-  <img src="docs/resumepic.png" alt="Prajwal S Hangaragi" class="photo">
-</div>
-
-
-  <hr>
-
-  <h2>Profile</h2>
-  <p>
-    Computer Science undergraduate specializing in Computer Science Engineering in AI & ML, with hands-on experience
-    building web-based developer tools, integrating automation pipelines, and deploying
-    full-stack applications. Strong interest in backend systems, intelligent tooling,
-    and scalable software solutions.
-  </p>
-
-  <h2>Technical Skills</h2>
-  <div class="skills">
-    <div class="skill">Python</div>
-    <div class="skill">FastAPI</div>
-    <div class="skill">Java</div>
-    <div class="skill">HTML</div>
-    <div class="skill">CSS</div>
-    <div class="skill">JavaScript</div>
-    <div class="skill">Git & GitHub</div>
-    <div class="skill">GitHub Actions (CI/CD)</div>
-    <div class="skill">Static Code Analysis</div>
-    <div class="skill">AI-Assisted Development</div>
-    <div class="skill">Machine Learning Fundamentals</div>
-    <div class="skill">Prompt Engineering</div>
-    <div class="skill">Deployment & Cloud Basics</div>
-  </div>
-
-  <h2>Projects</h2>
-
-  <div class="project">
-    <b>Python Code Review Tool (Web Application)</b>
-    <p class="muted">Backend · JavaScript · GitHub Actions · Deployment · Full-stack</p>
-    <ul>
-      <li>
-        Designed and built a <b>static code analysis tool</b> that detects unused variables,
-        long functions, and poor coding practices using rule-based logic and Python AST.
-      </li>
-      <li>
-        Developed a clean <b>web interface</b> allowing users to analyze pasted code or uploaded
-        Python files in real time.
-      </li>
-      <li>
-        Integrated <b>GitHub Actions</b> to automatically review Python code during pull requests,
-        simulating real-world CI workflows.
-      </li>
-      <li>
-        Deployed the application as a <b>public website</b>, with plans to extend it by
-        deploying additional developer-focused web tools.
-      </li>
-      <li>https://prash-2402.github.io/code-review-tool/</li>
-    </ul>
-  </div>
-
-  <h2>Education</h2>
-  <p>
-    <b>B.Tech in Computer Science & Engineering (AI & ML)</b><br>
-    Christ University, Bangalore (Kengeri Campus)<br>
-    2024 – 2028
-  </p>
-
-  <h2>Interests</h2>
-  <p>
-    Backend Engineering · Intelligent Developer Tools · Applied AI Systems ·
-    Automation · Scalable Web Applications
-  </p>
-
-</div>
 </body>
-</html>
 
+</html>
