@@ -1,7 +1,8 @@
 /* Global Variables - Interstellar Theme */
 :root {
     --bg-color: #050505;
-    --accent-color: #00ff9c; /* Keeping existing accent but making it glow */
+    --accent-color: #00ff9c;
+    /* Keeping existing accent but making it glow */
     --accent-glow: rgba(0, 255, 156, 0.6);
     --glass-bg: rgba(255, 255, 255, 0.03);
     --glass-border: rgba(255, 255, 255, 0.08);
@@ -42,16 +43,21 @@ body {
 ::-webkit-scrollbar {
     width: 8px;
 }
+
 ::-webkit-scrollbar-track {
     background: var(--bg-color);
 }
+
 ::-webkit-scrollbar-thumb {
     background: var(--accent-color);
     border-radius: 4px;
 }
 
 /* Typography */
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
     font-weight: 700;
     letter-spacing: -0.02em;
 }
@@ -169,13 +175,36 @@ nav ul li a:hover {
 
 /* Hero Section */
 header {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     position: relative;
-    padding-top: 60px; /* Offset for nav */
+    padding-top: 80px;
+    /* Offset for nav */
+    padding-bottom: 40px;
+}
+
+.profile-container {
+    margin-bottom: 2rem;
+    position: relative;
+    display: inline-block;
+}
+
+.profile-img {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid var(--accent-color);
+    box-shadow: 0 0 20px var(--accent-glow);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.profile-img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px var(--accent-glow), 0 0 60px rgba(0, 255, 156, 0.3);
 }
 
 .hero-content h1 {
@@ -343,8 +372,8 @@ footer {
         backdrop-filter: blur(20px);
     }
 
-    nav ul { 
-        gap: 15px; 
+    nav ul {
+        gap: 15px;
     }
 
     section {
