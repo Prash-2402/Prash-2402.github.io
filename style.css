@@ -360,13 +360,13 @@ footer {
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
     header {
-        padding-top: 140px;
-        /* Prevent navbar overlap */
+        padding-top: 180px;
+        /* Increased to account for stacked nav */
         padding-bottom: 60px;
     }
 
     .hero-content h1 {
-        font-size: 2.8rem;
+        font-size: 2.5rem;
     }
 
     .profile-img {
@@ -377,14 +377,24 @@ footer {
     nav {
         width: 100%;
         top: 0;
+        left: 0;
+        /* Reset from desktop centering */
+        transform: none;
+        /* Reset from desktop centering */
         border-radius: 0;
         padding: 15px 20px;
         background: rgba(5, 5, 5, 0.95);
         backdrop-filter: blur(20px);
+
+        /* Mobile Layout */
+        flex-direction: column;
+        justify-content: center;
+        gap: 15px;
     }
 
     nav ul {
-        gap: 15px;
+        gap: 20px;
+        justify-content: center;
     }
 
     section {
