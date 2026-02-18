@@ -360,8 +360,8 @@ footer {
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
     header {
-        padding-top: 180px;
-        /* Increased to account for stacked nav */
+        padding-top: 160px;
+        /* Sufficient space to prevent overlap */
         padding-bottom: 60px;
     }
 
@@ -386,15 +386,26 @@ footer {
         background: rgba(5, 5, 5, 0.95);
         backdrop-filter: blur(20px);
 
-        /* Mobile Layout */
+        /* Mobile Layout: Top-Left Alignment */
+        display: flex;
         flex-direction: column;
-        justify-content: center;
-        gap: 15px;
+        align-items: flex-start;
+        /* Aligns Logo to Left */
+        gap: 10px;
+    }
+
+    nav .logo {
+        font-size: 1.1rem;
+        /* Smaller Logo for Mobile */
+        margin-bottom: 5px;
     }
 
     nav ul {
-        gap: 20px;
-        justify-content: center;
+        width: 100%;
+        gap: 15px;
+        justify-content: flex-start;
+        /* Align links to left */
+        flex-wrap: wrap;
     }
 
     section {
