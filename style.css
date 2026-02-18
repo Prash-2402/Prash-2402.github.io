@@ -359,8 +359,19 @@ footer {
 
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
+    header {
+        padding-top: 140px;
+        /* Prevent navbar overlap */
+        padding-bottom: 60px;
+    }
+
     .hero-content h1 {
-        font-size: 3rem;
+        font-size: 2.8rem;
+    }
+
+    .profile-img {
+        width: 150px;
+        height: 150px;
     }
 
     nav {
@@ -368,7 +379,7 @@ footer {
         top: 0;
         border-radius: 0;
         padding: 15px 20px;
-        background: rgba(5, 5, 5, 0.9);
+        background: rgba(5, 5, 5, 0.95);
         backdrop-filter: blur(20px);
     }
 
@@ -378,5 +389,37 @@ footer {
 
     section {
         padding: 60px 0;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        padding-top: 160px;
+        /* More space for stacked nav */
+    }
+
+    .hero-content h1 {
+        font-size: 2.2rem;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+    }
+
+    nav {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px;
+    }
+
+    nav .logo {
+        margin-bottom: 5px;
+    }
+
+    nav ul {
+        gap: 15px;
+        font-size: 0.9rem;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 }
