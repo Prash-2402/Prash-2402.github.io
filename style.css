@@ -25,6 +25,7 @@ body {
     font-family: var(--font-main);
     overflow-x: hidden;
     line-height: 1.6;
+    margin-left: 180px; /* offset for vertical sidebar */
 }
 
 /* Background Stars Container */
@@ -136,41 +137,57 @@ a {
     padding: 0 20px;
 }
 
-/* Navigation */
+/* Navigation — Vertical Left Sidebar */
 nav {
     position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 0;
+    left: 0;
+    width: 180px;
+    height: 100vh;
     z-index: 100;
-    width: 90%;
-    max-width: 600px;
-    padding: 10px 30px;
-    border-radius: 50px;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0;
+    padding: 2rem 1.5rem;
+    border-radius: 0;
+    border-right: 1px solid var(--glass-border);
+    transform: none;
 }
 
 nav .logo {
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    margin-bottom: 2.5rem;
+    color: var(--accent-color);
+    text-shadow: 0 0 8px var(--accent-glow);
+    line-height: 1.3;
 }
 
 nav ul {
     list-style: none;
     display: flex;
-    gap: 20px;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
 }
 
 nav ul li a {
-    font-size: 0.9rem;
-    opacity: 0.8;
+    font-size: 0.95rem;
+    opacity: 0.7;
+    display: block;
+    padding: 4px 0;
+    border-left: 2px solid transparent;
+    padding-left: 10px;
+    transition: all 0.3s ease;
 }
 
 nav ul li a:hover {
     opacity: 1;
     color: var(--accent-color);
+    border-left-color: var(--accent-color);
+    padding-left: 14px;
 }
 
 /* Hero Section */
@@ -181,8 +198,7 @@ header {
     justify-content: center;
     text-align: center;
     position: relative;
-    padding-top: 80px;
-    /* Offset for nav */
+    padding-top: 40px;
     padding-bottom: 40px;
 }
 
@@ -357,12 +373,56 @@ footer {
     margin-top: 2rem;
 }
 
-/* Mobile Responsiveness */
+/* Mobile — collapse sidebar to bottom bar */
 @media (max-width: 768px) {
+    body {
+        margin-left: 0;
+        padding-bottom: 70px; /* space for bottom bar */
+    }
+
+    nav {
+        top: auto;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        padding: 12px 20px;
+        border-right: none;
+        border-top: 1px solid var(--glass-border);
+        background: rgba(5, 5, 5, 0.95);
+        backdrop-filter: blur(20px);
+    }
+
+    nav .logo {
+        display: none; /* hide name on mobile, save space */
+    }
+
+    nav ul {
+        flex-direction: row;
+        gap: 24px;
+        margin-bottom: 0;
+    }
+
+    nav ul li a {
+        border-left: none;
+        border-bottom: 2px solid transparent;
+        padding-left: 0;
+        padding-bottom: 4px;
+        font-size: 0.9rem;
+    }
+
+    nav ul li a:hover {
+        border-left-color: transparent;
+        border-bottom-color: var(--accent-color);
+        padding-left: 0;
+    }
+
     header {
-        padding-top: 160px;
-        /* Sufficient space to prevent overlap */
-        padding-bottom: 60px;
+        padding-top: 60px;
+        padding-bottom: 40px;
     }
 
     .hero-content h1 {
@@ -374,51 +434,12 @@ footer {
         height: 150px;
     }
 
-    nav {
-        width: 100%;
-        top: 0;
-        left: 0;
-        /* Reset from desktop centering */
-        transform: none;
-        /* Reset from desktop centering */
-        border-radius: 0;
-        padding: 15px 20px;
-        background: rgba(5, 5, 5, 0.95);
-        backdrop-filter: blur(20px);
-
-        /* Mobile Layout: Top-Left Alignment */
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        /* Aligns Logo to Left */
-        gap: 10px;
-    }
-
-    nav .logo {
-        font-size: 1.1rem;
-        /* Smaller Logo for Mobile */
-        margin-bottom: 5px;
-    }
-
-    nav ul {
-        width: 100%;
-        gap: 15px;
-        justify-content: flex-start;
-        /* Align links to left */
-        flex-wrap: wrap;
-    }
-
     section {
         padding: 60px 0;
     }
 }
 
 @media (max-width: 480px) {
-    header {
-        padding-top: 160px;
-        /* More space for stacked nav */
-    }
-
     .hero-content h1 {
         font-size: 2.2rem;
     }
@@ -427,20 +448,7 @@ footer {
         font-size: 1rem;
     }
 
-    nav {
-        flex-direction: column;
-        gap: 10px;
-        padding: 15px;
-    }
-
-    nav .logo {
-        margin-bottom: 5px;
-    }
-
     nav ul {
-        gap: 15px;
-        font-size: 0.9rem;
-        flex-wrap: wrap;
-        justify-content: center;
+        gap: 20px;
     }
 }
