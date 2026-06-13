@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prajwal S Hangaragi | Portfolio</title>
+  <!-- Google Fonts: Outfit (modern/tech) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <!-- FontAwesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+  <!-- Intro Overlay -->
+  <div id="intro-overlay">
+    <h1 class="intro-text">Welcome to my Portfolio</h1>
+    <p class="intro-sub">Initiating Launch Sequence...</p>
+  </div>
+
+  <!-- Background Stars -->
+  <div id="star-container"></div>
+
+  <!-- Navigation -->
+  <nav class="glass-panel">
+    <div class="logo">Prajwal Hangaragi</div>
+    <ul>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#achievements">Achievements</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="container">
+    <div class="hero-content">
+      <div class="profile-container">
+        <img src="docs/resumepic.png" alt="Prajwal S Hangaragi" class="profile-img">
+      </div>
+      <h1>Hi, I’m <span class="text-accent">Prajwal S Hangaragi</span></h1>
+      <p>Computer Science (AIML) Student | Cybersecurity Enthusiast</p>
+      <p style="font-size: 1.1rem; max-width: 600px; margin: 0 auto 2rem;">
+        I build secure, clean, and efficient software systems with a focus on AI, Web Development, and Automation.
+      </p>
+      <div class="hero-btns">
+        <a href="#projects" class="btn btn-primary">View Projects</a>
+        <a href="docs/res_1702.pdf" target="_blank" class="btn btn-glass">Download Resume</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Projects Section -->
+  <section id="projects" class="container">
+    <h2 class="section-title"><span>Projects</span></h2>
+
+    <div class="projects-grid">
+      <!-- Project - ShopIQ -->
+      <div class="glass-panel project-card">
+        <h3>ShopIQ</h3>
+        <p>AI-Powered Kirana Management System</p>
+        <div class="project-tags">
+          <span class="tag">React Native</span>
+          <span class="tag">Expo</span>
+          <span class="tag">Supabase</span>
+          <span class="tag">FastAPI</span>
+          <span class="tag">Gemini AI</span>
+          <span class="tag">Prophet</span>
+          <span class="tag">Whisper API</span>
+        </div>
+        <p>Full-stack mobile app for Indian kirana stores — AI demand forecasting, WhatsApp automation, voice input in Hindi &amp; Kannada, and profit analytics. Built at OkCredit Finternship.</p>
+      </div>
+
+      <!-- Project - PropagandaLens -->
+      <div class="glass-panel project-card">
+        <h3>PropagandaLens</h3>
+        <p>Multilingual Propaganda & Manipulation Detector</p>
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">FastAPI</span>
+          <span class="tag">Groq AI</span>
+          <span class="tag">Helsinki-NLP</span>
+          <span class="tag">React</span>
+        </div>
+        <p>AI-powered tool detecting 8 rhetorical manipulation techniques in English & Hindi. Features temporal
+          analysis, explainable AI chat, and PDF reports.</p>
+        <a href="https://propaganda-lens.vercel.app/" target="_blank" class="project-link">
+          Live Demo <i class="fas fa-external-link-alt" style="margin-left: 5px;"></i>
+        </a>
+      </div>
+
+      <!-- Project 0 - UnMask -->
+      <div class="glass-panel project-card">
+        <h3>UnMask</h3>
+        <p>AI Deepfake Detection System</p>
+        <div class="project-tags">
+          <span class="tag">TensorFlow</span>
+          <span class="tag">EfficientNetB0</span>
+          <span class="tag">Flask</span>
+          <span class="tag">OpenCV</span>
+          <span class="tag">MTCNN</span>
+        </div>
+        <p>Real-time deepfake detection for images &amp; videos using ensemble deep learning — built at FOOBAR 10.0
+          Hackathon (Cybersecurity Domain).</p>
+        <a href="https://unmask-nan8.onrender.com/" target="_blank" class="project-link">
+          Live Demo <i class="fas fa-external-link-alt" style="margin-left: 5px;"></i>
+        </a>
+      </div>
+
+      <!-- Project 1 removed -->
+
+      <!-- Project 2 -->
+      <div class="glass-panel project-card">
+        <h3>KAPP - AI Career Map</h3>
+        <p>AI Career Navigator</p>
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">Gemini 2.5</span>
+          <span class="tag">React</span>
+          <span class="tag">Agents</span>
+        </div>
+        <p>AI-powered career guidance platform using multi-agent architecture to analyze resumes and generate roadmaps.
+        </p>
+        <a href="https://kapp-rho.vercel.app/" target="_blank" class="project-link">
+          Live Demo <i class="fas fa-external-link-alt" style="margin-left: 5px;"></i>
+        </a>
+      </div>
+
+      <!-- Project 3 -->
+      <div class="glass-panel project-card">
+        <h3>Code Review Tool</h3>
+        <p>Static Analysis Web App</p>
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">AST</span>
+          <span class="tag">JavaScript</span>
+        </div>
+        <p>Designed and built a static code analysis tool that detects unused variables and poor coding practices.</p>
+        <a href="https://prash-2402.github.io/code-review-tool/" target="_blank" class="project-link">
+          Live Demo <i class="fas fa-external-link-alt" style="margin-left: 5px;"></i>
+        </a>
+      </div>
+
+      <!-- Project 4 -->
+      <div class="glass-panel project-card">
+        <h3>Fitness & TDEE Calc</h3>
+        <p>Health Utility Web App</p>
+        <div class="project-tags">
+          <span class="tag">JavaScript</span>
+          <span class="tag">CSS</span>
+          <span class="tag">Health Logic</span>
+        </div>
+        <p>Interactive fitness calculator for TDEE, calorie deficit/surplus, and daily intake planning.</p>
+        <a href="https://prash-2402.github.io/fitness-calculator/" target="_blank" class="project-link">
+          Live Demo <i class="fas fa-external-link-alt" style="margin-left: 5px;"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Education Section -->
+  <section id="education" class="container">
+    <h2 class="section-title"><span>Education</span></h2>
+    <div class="glass-panel education-item">
+      <h3>B.Tech in Computer Science & Engineering (AI & ML)</h3>
+      <p class="education-meta">Christ University, Bangalore (Kengeri Campus) | 2024 – 2028</p>
+      <p>Pursuing undergraduate degree with a specialization in AI & ML and Honours in Cybersecurity.</p>
+    </div>
+  </section>
+
+  <!-- Skills Section (from Resume) -->
+  <section id="skills" class="container">
+    <h2 class="section-title"><span>Skills</span></h2>
+    <div class="glass-panel">
+        <div class="project-tags" style="justify-content: center;">
+        <span class="tag">Python</span>
+        <span class="tag">Java</span>
+        <span class="tag">JavaScript</span>
+        <span class="tag">React</span>
+        <span class="tag">React Native</span>
+        <span class="tag">Expo</span>
+        <span class="tag">Node.js</span>
+        <span class="tag">Express</span>
+        <span class="tag">MySQL</span>
+        <span class="tag">PostgreSQL</span>
+        <span class="tag">FastAPI</span>
+        <span class="tag">Supabase</span>
+        <span class="tag">Firebase</span>
+        <span class="tag">Gemini AI</span>
+        <span class="tag">Groq AI</span>
+        <span class="tag">LLMs</span>
+        <span class="tag">Prophet</span>
+        <span class="tag">scikit-learn</span>
+        <span class="tag">Whisper API</span>
+        <span class="tag">HTML/CSS</span>
+        <span class="tag">Git</span>
+        <span class="tag">Linux</span>
+        <span class="tag">TensorFlow</span>
+        <span class="tag">Flask</span>
+        <span class="tag">OpenCV</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Achievements & Hackathons Section -->
+  <section id="achievements" class="container">
+    <h2 class="section-title"><span>Achievements &amp; Hackathons</span></h2>
+    <div class="projects-grid">
+      <div class="glass-panel project-card">
+        <h3>OkCredit Finternship</h3>
+        <p>ShopIQ — AI Kirana App (2025)</p>
+        <div class="project-tags">
+          <span class="tag">8-Week Hackathon</span>
+          <span class="tag">React Native</span>
+          <span class="tag">Supabase</span>
+          <span class="tag">AI/ML</span>
+        </div>
+        <p>Built an AI kirana management app from scratch. Conducted real merchant interviews, shipped working prototype covering inventory, billing, udhar, demand forecasting &amp; WhatsApp automation.</p>
+      </div>
+      <div class="glass-panel project-card">
+        <h3>FOOBAR 10.0 Hackathon</h3>
+        <p>UnMask — Cybersecurity Domain</p>
+        <div class="project-tags">
+          <span class="tag">TensorFlow</span>
+          <span class="tag">EfficientNetB0</span>
+          <span class="tag">Flask</span>
+          <span class="tag">OpenCV</span>
+        </div>
+        <p>Delivered an end-to-end deepfake detection system achieving 94–96% accuracy within the competition's time constraint.</p>
+        <a href="https://unmask-nan8.onrender.com/" target="_blank" class="project-link">
+          Live Demo <i class="fas fa-external-link-alt" style="margin-left: 5px;"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="container">
+    <h2 class="section-title"><span>Contact Me</span></h2>
+    <div class="contact-grid">
+      <div class="glass-panel contact-card">
+        <i class="fas fa-envelope contact-icon"></i>
+        <h3>Email</h3>
+        <p>prajwal.s.2h@gmail.com</p>
+      </div>
+      <a href="https://github.com/Prash-2402" target="_blank" class="glass-panel contact-card"
+        style="display: block; text-decoration: none;">
+        <i class="fab fa-github contact-icon"></i>
+        <h3>GitHub</h3>
+        <p>github.com/Prash-2402</p>
+      </a>
+      <a href="https://www.linkedin.com/in/prajwal-s-hangaragi-578586315" target="_blank"
+        class="glass-panel contact-card" style="display: block; text-decoration: none;">
+        <i class="fab fa-linkedin contact-icon"></i>
+        <h3>LinkedIn</h3>
+        <p>Connect with me</p>
+      </a>
+      <div class="glass-panel contact-card">
+        <i class="fas fa-phone contact-icon"></i>
+        <h3>Phone</h3>
+        <p>+91 7204557247</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 Prajwal S Hangaragi. All Rights Reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
