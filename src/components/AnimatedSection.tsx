@@ -48,7 +48,7 @@ export const AnimatedSection: React.FC<AnimatedSectionProps> = ({ id, className 
   }, []);
 
   return (
-    <section id={id} ref={sectionRef} className={className} style={{ opacity: 0 }}>
+    <section id={id} ref={sectionRef} className={`${className} relative z-10`} style={{ opacity: 0 }}>
       {children}
     </section>
   );

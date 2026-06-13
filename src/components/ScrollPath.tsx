@@ -216,7 +216,7 @@ export const ScrollPath: React.FC = () => {
   return (
     <div
       ref={containerRef}
-      className="absolute top-0 left-0 w-full pointer-events-none z-10 overflow-hidden"
+      className="absolute top-0 left-0 w-full pointer-events-none z-0 overflow-hidden"
       style={{ height: dimensions.height }}
     >
       {points.length > 0 && (
