@@ -262,31 +262,61 @@ nav ul li a.active-link {
     animation: pathPulse 2s infinite ease-in-out;
 }
 
-/* ─────────────────────────────────────────────────────────────
-   Cylinder-roll project cards
-   ───────────────────────────────────────────────────────────── */
+/* ─────────────────────────────────────────────────────────────────────────
+   3D Pivot-and-Slide project cards
+   Two-layer architecture:
+     .cylinder-shell   — receives JS 3D transforms (NO backdrop-filter, so
+                         preserve-3d chain is never broken by a stacking ctx)
+     .cylinder-card-inner — glass visual layer (backdrop-filter lives HERE,
+                         isolated from the transform chain)
+   ───────────────────────────────────────────────────────────────────────── */
 
-/* The perspective wrapper and slots must NEVER clip overflow —
-   3D translateZ will be cut off by overflow:hidden. */
+/* Wrapper and slots must never clip their 3D children */
 .cylinder-projects-wrapper,
 .cylinder-slot {
     overflow: visible !important;
 }
 
-/* Cards are controlled entirely by JS/rAF — no CSS transitions on transform */
-.cylinder-card {
+/*
+ * 3D SHELL — the element that rotates and translates.
+ * Rules:
+ *   - NO backdrop-filter (would create stacking ctx, override transform-style
+ *     to 'flat', and kill the 3D effect)
+ *   - NO CSS transition on transform/opacity (set via JS every rAF frame)
+ *   - NO backface-visibility:hidden (we WANT the faint back-face silhouette
+ *     visible at p=0; hiding it makes the card invisible until mid-scroll)
+ *   - transform-origin is set PER CARD as an inline style (left-edge for
+ *     right-resting, right-edge for left-resting)
+ */
+.cylinder-shell {
     will-change: transform, opacity;
     transform-style: preserve-3d;
-    transform-origin: center center;
-    /* backface-visibility hides the card's reverse face when rotateY≈180° */
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    /* ONLY non-transform properties get CSS transitions */
+    /* hover: only non-transform properties — must not override JS transform */
+    transition: filter 0.4s ease;
+}
+
+.cylinder-shell:hover {
+    filter: brightness(1.08);
+}
+
+/*
+ * INNER VISUAL LAYER — glass morphism lives here.
+ * This element is never 3D-transformed directly; it just rides along inside
+ * the shell. Keeping backdrop-filter here (not on the shell) prevents it
+ * from creating a stacking context that would flatten the shell's 3D transform.
+ */
+.cylinder-card-inner {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
     transition: box-shadow 0.4s ease, border-color 0.4s ease;
 }
 
-.cylinder-card:hover {
+.cylinder-shell:hover .cylinder-card-inner {
     box-shadow: 0 20px 60px rgba(0, 212, 255, 0.2), 0 0 40px rgba(0, 255, 156, 0.1);
     border-color: rgba(0, 212, 255, 0.4);
 }
-
