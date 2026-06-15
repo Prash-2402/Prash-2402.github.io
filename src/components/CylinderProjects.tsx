@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 interface Project {
   title: string;
@@ -12,20 +12,39 @@ interface CylinderProjectsProps {
   projects: Project[];
 }
 
-// ─── Constants ───────────────────────────────────────────────────────────────
-const N               = 10;    // vertical strip count per card
-const R               = 500;   // cylinder radius in px
-const MAX_ANGLE_SPAN  = 50;    // total angular arc of card on cylinder (deg)
-const CARD_HEIGHT     = 400;   // fixed height in px — all cards same height
-
 const easeInOutQuad = (x: number): number =>
   x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
 
 const lerp = (a: number, b: number, t: number): number =>
   a + (b - a) * t;
 
-// ─── Card content renderer (used both in strips and in the glass face) ───────
-// Declared outside the component so it doesn't re-create on every render.
+// ─── Responsive Dimensions (Fix 1) ───────────────────────────────────────────
+function getCardDimensions() {
+  if (typeof window === 'undefined') {
+    return { width: 440, height: 240, N: 10, R: 500, maxArc: 50 };
+  }
+  const vw = window.innerWidth;
+  const mobile = vw < 640;
+  let width = 440, height = 240;
+  
+  if (mobile) {
+    width = Math.min(vw * 0.85, 320);
+    height = 280;
+  } else if (vw < 1024) {
+    width = 380;
+    height = 260;
+  }
+  
+  return {
+    width,
+    height,
+    N: mobile ? 4 : 10,          // Fix 2A: fewer strips on mobile
+    R: mobile ? 250 : 500,       // Fix 2C: smaller radius
+    maxArc: mobile ? 30 : 50,    // Fix 2C: smaller arc
+  };
+}
+
+// ─── Card content renderer ───────────────────────────────────────────────────
 function CardContent({ proj }: { proj: Project }) {
   return (
     <>
@@ -77,131 +96,136 @@ function CardContent({ proj }: { proj: Project }) {
 
 // ─── Component ───────────────────────────────────────────────────────────────
 export const CylinderProjects: React.FC<CylinderProjectsProps> = ({ projects }) => {
-  // slotRefs    — immovable layout containers. getBoundingClientRect() here
-  //               is unaffected by any transform on child elements, so scroll
-  //               progress and the SVG line's y-coordinates stay accurate.
+  const [dim, setDim] = useState(getCardDimensions);
+
   const slotRefs      = useRef<(HTMLDivElement | null)[]>([]);
-
-  // cylinderRefs — receive Phase 2 group transform (translateX slide + arc).
-  //                NO rotateY here — only strips rotate.
   const cylinderRefs  = useRef<(HTMLDivElement | null)[]>([]);
-
-  // glassFaceRefs — flat visual glass panel that fades in as e1 → 1.
-  //                 Holds the REAL interactive card content.
-  const glassFaceRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-  // stripRefs — flat array. Index: cardIdx * N + stripIdx.
-  //             Each strip element receives Phase 1 per-strip cylinder math.
   const stripRefs     = useRef<(HTMLDivElement | null)[]>([]);
+  const rafRef        = useRef<number | null>(null);
 
-  const rafRef   = useRef<number | null>(null);
-  const ticking  = useRef(false);
-
+  // Resize listener
   useEffect(() => {
-    const isMobile = () => window.innerWidth < 640;
+    let timeout: ReturnType<typeof setTimeout>;
+    const handleResize = () => {
+      clearTimeout(timeout);
+      // Debounce resize to prevent rapid state changes
+      timeout = setTimeout(() => {
+        setDim(getCardDimensions());
+      }, 250);
+    };
 
+    window.addEventListener('resize', handleResize);
+    return () => {
+      clearTimeout(timeout);
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  // Scroll listener
+  useEffect(() => {
+    const isMobile = window.innerWidth < 640;
+    
     const updateAll = () => {
-      const vh     = window.innerHeight;
-      const mobile = isMobile();
-      const finalXAbs = mobile ? 50  : 140;
-      const arcY      = mobile ? 10  : 20;
+      const vh = window.innerHeight;
+      const finalXAbs = isMobile ? 50 : 140;
+      const arcY = isMobile ? 10 : 20;
+      const buffer = vh; // 1 viewport height buffer
+      
+      // Scale constants
+      const SCALE_MIN = isMobile ? 0.45 : 0.55;
+      const SCALE_MAX = 1;
 
       projects.forEach((_, idx) => {
-        const slot      = slotRefs.current[idx];
-        const cylinder  = cylinderRefs.current[idx];
-        const glassFace = glassFaceRefs.current[idx];
+        const slot = slotRefs.current[idx];
+        const cylinder = cylinderRefs.current[idx];
         if (!slot || !cylinder) return;
 
-        // ── Scroll progress ──────────────────────────────────────────────────
-        // Read from SLOT, not card — slot is untransformed so rect is stable.
         const rect = slot.getBoundingClientRect();
 
-        // Updated divisor for 55vh slots (tighter trigger window)
+        // Fix 2B: Skip off-screen cards entirely
+        if (rect.bottom < -buffer || rect.top > vh + buffer) {
+          return;
+        }
+
         let p = (vh * 0.85 - rect.top) / (vh * 0.45);
         p = Math.max(0, Math.min(1, p));
 
-        // Phase split: first 60% = pivot (Phase 1), last 40% = slide (Phase 2)
         const p1 = Math.max(0, Math.min(1,  p / 0.6));
         const p2 = Math.max(0, Math.min(1, (p - 0.6) / 0.4));
         const e1 = easeInOutQuad(p1);
         const e2 = easeInOutQuad(p2);
 
-        const isRight    = idx % 2 === 0;
-        const baseFacing = isRight ? 180 : -180;  // starting rotateY per side
-        const finalX     = isRight ? finalXAbs : -finalXAbs;
+        const isRight = idx % 2 === 0;
+        const baseFacing = isRight ? 180 : -180;
+        const finalX = isRight ? finalXAbs : -finalXAbs;
 
-        // ── Phase 2: group slide on .card-cylinder ───────────────────────────
-        // Only translateX + arc Y — no rotation on the cylinder group itself.
-        cylinder.style.transform =
-          `translateX(${finalX * e2}px) translateY(${-arcY * Math.sin(e2 * Math.PI)}px)`;
+        // Size Transform (Part 2)
+        const cardScale = SCALE_MIN + (SCALE_MAX - SCALE_MIN) * e1;
+        const groupTX = finalX * e2;
+        const groupTY = -arcY * Math.sin(e2 * Math.PI);
+
+        // Group transform
+        cylinder.style.transform = `translate3d(${groupTX}px, ${groupTY}px, 0) scale(${cardScale})`;
+        // Faint opacity when behind
         cylinder.style.opacity = String(0.12 + 0.88 * e1);
 
-        // Glass face fades in as card faces the viewer (e1 → 1)
-        if (glassFace) {
-          glassFace.style.opacity = String(easeInOutQuad(e1));
-        }
+        const isResting = e1 >= 0.99 && e2 >= 0.99;
 
-        // ── Phase 1: per-strip cylinder wrap ────────────────────────────────
-        // Each strip i has a slightly different angle on the cylinder,
-        // creating visible CURVATURE instead of a flat rotating plane.
-        for (let i = 0; i < N; i++) {
-          const strip = stripRefs.current[idx * N + i];
+        // Phase 1: per-strip cylinder wrap
+        for (let i = 0; i < dim.N; i++) {
+          const strip = stripRefs.current[idx * dim.N + i];
           if (!strip) continue;
 
-          // t_i runs −0.5 (leftmost strip) → +0.5 (rightmost strip)
-          const t_i         = (i / (N - 1)) - 0.5;
-          const curvedAngle = t_i * MAX_ANGLE_SPAN;
-
-          // Each strip has its own angle: starts at baseFacing ± curvedAngle,
-          // lerps toward 0 as e1 → 1 so all strips end up flat and aligned.
+          const t_i = (i / (dim.N - 1)) - 0.5;
+          const curvedAngle = t_i * dim.maxArc;
           const totalAngle = lerp(baseFacing + curvedAngle, 0, e1);
-          const rad        = totalAngle * Math.PI / 180;
+          const rad = totalAngle * Math.PI / 180;
 
-          // Cylinder parametric equations: place strip on cylinder surface.
-          // At totalAngle=0: sin=0, cos=1 → translateX=0, translateZ=0 ✓
-          const stripTX = R * Math.sin(rad);
-          const stripTZ = R * (Math.cos(rad) - 1);  // 0 when facing, −depth behind
+          const stripTX = dim.R * Math.sin(rad);
+          const stripTZ = dim.R * (Math.cos(rad) - 1);
 
-          // Order matters: translate first (world space), then rotate (local)
-          strip.style.transform =
-            `translateX(${stripTX}px) translateZ(${stripTZ}px) rotateY(${totalAngle}deg)`;
+          // Fix 2D: Combine transforms into single translate3d
+          strip.style.transform = `translate3d(${stripTX}px, 0, ${stripTZ}px) rotateY(${totalAngle}deg)`;
+          
+          // Fix 2F: Remove will-change after animation settles
+          strip.style.willChange = isResting ? 'auto' : 'transform';
         }
       });
-
-      ticking.current = false;
+      rafRef.current = null;
     };
 
+    let frameSkip = false;
     const onScroll = () => {
-      if (!ticking.current) {
-        ticking.current = true;
-        rafRef.current  = requestAnimationFrame(updateAll);
+      // Fix 2E: Throttle scroll updates on mobile to every other frame
+      if (isMobile) {
+        if (frameSkip) {
+          frameSkip = false;
+          return;
+        }
+        frameSkip = true;
+      }
+      if (rafRef.current === null) {
+        rafRef.current = requestAnimationFrame(updateAll);
       }
     };
 
-    updateAll(); // correct initial state before first scroll
+    updateAll(); // Initial state
     window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', updateAll, { passive: true });
 
     return () => {
       window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', updateAll);
-      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+      }
     };
-  }, [projects.length]);
+  }, [projects.length, dim]); // Re-bind scroll if dim changes (N affects loop)
 
   return (
-    // ── PERSPECTIVE WRAPPER ─────────────────────────────────────────────────
-    // Must NOT have: overflow:hidden, transform, or any property that creates
-    // a new stacking context — these flatten the 3D context for descendants.
     <div
       className="cylinder-projects-wrapper"
       style={{ perspective: '1200px', perspectiveOrigin: '50% 50%' }}
     >
       {projects.map((proj, idx) => (
-        // ── SLOT ─────────────────────────────────────────────────────────────
-        // Fixed height: 55vh — never collapses from card animation.
-        // transform-style: preserve-3d is the critical link:
-        //   perspective-wrapper → slot → cylinder → strips (all in same 3D space)
         <div
           key={idx}
           ref={(el) => { slotRefs.current[idx] = el; }}
@@ -212,101 +236,64 @@ export const CylinderProjects: React.FC<CylinderProjectsProps> = ({ projects }) 
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            transformStyle: 'preserve-3d', // ← critical — passes 3D context down
+            transformStyle: 'preserve-3d',
             overflow: 'visible',
           }}
         >
-          {/* ── CARD CYLINDER ────────────────────────────────────────────────
-              Receives Phase 2 group transform (translateX slide + arc Y only).
-              The cylinder itself does NOT rotate — only the strips inside do.
-              transform-style: preserve-3d must be here so strip transforms
-              are in the same 3D space as the perspective wrapper.           */}
           <div
             ref={(el) => { cylinderRefs.current[idx] = el; }}
+            className="card-cylinder"
             style={{
               position: 'relative',
-              width: 'min(640px, calc(100vw - 40px))',
-              height: `${CARD_HEIGHT}px`,
-              transformStyle: 'preserve-3d', // passes 3D context to strips
+              width: `${dim.width}px`,
+              height: `${dim.height}px`,
+              transformStyle: 'preserve-3d',
               willChange: 'transform, opacity',
+              transformOrigin: 'center center', // Scale from center
             }}
           >
-            {/* ── GLASS FACE ────────────────────────────────────────────────
-                Flat visual layer at z=0. Contains the REAL interactive card
-                content (links, etc.) — pointer-events: auto.
-                Fades in as e1 → 1 (card fully facing viewer).
-                backdrop-filter is isolated HERE (not on strips) so it does
-                not create a stacking context inside the 3D strip chain.
-                Starts at opacity=0 so animation strips dominate at p=0.    */}
-            <div
-              ref={(el) => { glassFaceRefs.current[idx] = el; }}
-              className="cylinder-glass-face"
-              style={{
-                position: 'absolute',
-                inset: 0,
-                background: 'rgba(255,255,255,0.04)',
-                backdropFilter: 'blur(14px)',
-                WebkitBackdropFilter: 'blur(14px)',
-                padding: '1.75rem',
-                boxSizing: 'border-box',
-                opacity: 0, // JS controls: fades to 1 as e1 → 1
-                zIndex: 10, // above strips in DOM — receives pointer events
-              }}
-            >
-              <CardContent proj={proj} />
-            </div>
-
-            {/* ── STRIPS ────────────────────────────────────────────────────
-                N=10 vertical slices. Each is a "window" (overflow:hidden)
-                into a full-width clone of the card content.
-
-                Anatomy of the slice window trick:
-                  - strip: position:absolute; left: i*10%; width:10%; overflow:hidden
-                  - inner content: position:absolute; left: -i*100% (of strip width)
-                                   width: N*100% = 1000% (= full card width)
-
-                At e1=1 all strip transforms are identity → strips tile flush.
-                At e1<1 strips fan around the cylinder, each at curvedAngle_i.
-
-                pointer-events: none — the glass face above handles interaction.
-                NO backface-visibility:hidden — we want faint back-face visible.
-                NO backdrop-filter — would break transform-style: preserve-3d. */}
-            {Array.from({ length: N }, (_, i) => (
-              <div
-                key={i}
-                ref={(el) => { stripRefs.current[idx * N + i] = el; }}
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: `${i * 10}%`,           // natural tiled position
-                  width: '10%',                  // 1/N of card width
-                  height: `${CARD_HEIGHT}px`,
-                  overflow: 'hidden',            // clips to show only this slice
-                  transformStyle: 'preserve-3d', // ← must NOT break the chain
-                  willChange: 'transform',
-                  pointerEvents: 'none',
-                }}
-              >
-                {/* Content positioned so the overflow:hidden window shows
-                    exactly the i-th horizontal slice of the full card layout.
-                    left: -i*100% shifts the content left by i strip-widths.
-                    width: N*100% = full card width (N × strip width).         */}
+            {/* ── STRIPS ── (Fix duplicate render by removing separate glassFace layer) */}
+            {Array.from({ length: dim.N }, (_, i) => {
+              const stripWidth = dim.width / dim.N;
+              return (
                 <div
+                  key={i}
+                  ref={(el) => { stripRefs.current[idx * dim.N + i] = el; }}
+                  className="strip"
                   style={{
                     position: 'absolute',
                     top: 0,
-                    left: `${-i * 100}%`, // -0%, -100%, -200%, ..., -900% of strip
-                    width: `${N * 100}%`, // 1000% of strip = full card width
-                    height: `${CARD_HEIGHT}px`,
-                    padding: '1.75rem',
-                    boxSizing: 'border-box',
-                    pointerEvents: 'none',
+                    left: `${i * stripWidth}px`,
+                    width: `${stripWidth}px`,
+                    height: `${dim.height}px`,
+                    overflow: 'hidden',
+                    transformStyle: 'preserve-3d',
+                    willChange: 'transform',
+                    pointerEvents: 'none', // Strips themselves don't block clicks
                   }}
                 >
-                  <CardContent proj={proj} />
+                  <div
+                    className="cylinder-glass-face card-content"
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: `${-i * stripWidth}px`,
+                      width: `${dim.width}px`,
+                      height: `${dim.height}px`,
+                      padding: '1.75rem',
+                      boxSizing: 'border-box',
+                      pointerEvents: 'auto', // Real content is clickable
+                      background: 'rgba(255,255,255,0.04)',
+                      backdropFilter: 'blur(14px)',
+                      WebkitBackdropFilter: 'blur(14px)',
+                    }}
+                  >
+                    <CardContent proj={proj} />
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
+
           </div>
         </div>
       ))}
