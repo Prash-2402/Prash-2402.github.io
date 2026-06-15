@@ -165,8 +165,8 @@ export const CylinderProjects: React.FC<CylinderProjectsProps> = ({ projects }) 
         const groupTX = finalX * e2;
         const groupTY = -arcY * Math.sin(e2 * Math.PI);
 
-        // Group transform
-        cylinder.style.transform = `translate3d(${groupTX}px, ${groupTY}px, 0) scale(${cardScale})`;
+        // Group transform (now includes -50% centering because position is absolute)
+        cylinder.style.transform = `translate3d(calc(-50% + ${groupTX}px), calc(-50% + ${groupTY}px), 0) scale(${cardScale})`;
         
         // Faint opacity when behind
         cylinder.style.opacity = String(0.12 + 0.88 * e1);
@@ -176,19 +176,21 @@ export const CylinderProjects: React.FC<CylinderProjectsProps> = ({ projects }) 
         // Crossfade logic: strips fade out at the very end, solid glass face fades in.
         // This solves the disjointed blur seams while keeping the 3D rolling curve!
         const glassFace = document.getElementById(`glass-face-${idx}`);
-        const stripsContainer = document.getElementById(`strips-container-${idx}`);
         
-        if (glassFace && stripsContainer) {
+        if (glassFace) {
+          // Apply IDENTICAL transform to the 2D glass face layer
+          glassFace.style.transform = `translate3d(calc(-50% + ${groupTX}px), calc(-50% + ${groupTY}px), 0) scale(${cardScale})`;
+
           if (e1 > 0.9) {
             const crossfade = (e1 - 0.9) * 10; // 0 to 1
             glassFace.style.opacity = String(crossfade);
             glassFace.style.visibility = 'visible'; // ADDED: Restores element to render tree
-            stripsContainer.style.opacity = String(1 - crossfade);
+            cylinder.style.opacity = String(1 - crossfade);
             glassFace.style.pointerEvents = 'auto';
           } else {
             glassFace.style.opacity = '0';
             glassFace.style.visibility = 'hidden'; // ADDED: Completely removes backdrop-filter from GPU calculation during scroll
-            stripsContainer.style.opacity = '1';
+            cylinder.style.opacity = '1';
             glassFace.style.pointerEvents = 'none';
           }
         }
@@ -234,10 +236,7 @@ export const CylinderProjects: React.FC<CylinderProjectsProps> = ({ projects }) 
   }, [projects.length, dim]); // Re-bind scroll if dim changes (N affects loop)
 
   return (
-    <div
-      className="cylinder-projects-wrapper"
-      style={{ perspective: '1200px', perspectiveOrigin: '50% 50%' }}
-    >
+    <div className="cylinder-projects-wrapper">
       {projects.map((proj, idx) => (
         <div
           key={idx}
@@ -249,7 +248,8 @@ export const CylinderProjects: React.FC<CylinderProjectsProps> = ({ projects }) 
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            transformStyle: 'preserve-3d',
+            perspective: '1200px', // Moved from wrapper to fix backdrop-filter bug
+            perspectiveOrigin: '50% 50%',
             overflow: 'visible',
           }}
         >
@@ -257,37 +257,17 @@ export const CylinderProjects: React.FC<CylinderProjectsProps> = ({ projects }) 
             ref={(el) => { cylinderRefs.current[idx] = el; }}
             className="card-cylinder"
             style={{
-              position: 'relative',
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
               width: `${dim.width}px`,
               height: `${dim.height}px`,
               transformStyle: 'preserve-3d',
               willChange: 'transform, opacity',
               transformOrigin: 'center center',
+              zIndex: 1,
             }}
           >
-            {/* ── SOLID GLASS FACE ── Fades in at e1 > 0.9. Has backdrop-filter to blur the SVG line correctly without seams. */}
-            <div
-              id={`glass-face-${idx}`}
-              className="cylinder-glass-face card-content"
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: '100%',
-                padding: '1.75rem',
-                boxSizing: 'border-box',
-                background: 'rgba(255,255,255,0.04)',
-                backdropFilter: 'blur(14px)',
-                WebkitBackdropFilter: 'blur(14px)',
-                opacity: 0,
-                pointerEvents: 'none',
-                zIndex: 10,
-              }}
-            >
-              <CardContent proj={proj} />
-            </div>
-
             {/* ── ANIMATION STRIPS ── (Crossfades out as glass face comes in. No backdrop-filter here to avoid seams). */}
             <div id={`strips-container-${idx}`} style={{ transformStyle: 'preserve-3d', opacity: 1 }}>
               {Array.from({ length: dim.N }, (_, i) => {
@@ -331,6 +311,32 @@ export const CylinderProjects: React.FC<CylinderProjectsProps> = ({ projects }) 
               );
             })}
             </div>
+          </div>
+
+          {/* ── SOLID GLASS FACE ── 
+              Fades in at e1 > 0.9. Moved OUTSIDE the preserve-3d cylinder to fix browser 
+              backdrop-filter bugs. This layer acts as a normal 2D layer and blurs the SVG line behind it. */}
+          <div
+            id={`glass-face-${idx}`}
+            className="cylinder-glass-face card-content"
+            style={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              width: `${dim.width}px`,
+              height: `${dim.height}px`,
+              padding: '1.75rem',
+              boxSizing: 'border-box',
+              background: 'rgba(255,255,255,0.04)',
+              backdropFilter: 'blur(14px)',
+              WebkitBackdropFilter: 'blur(14px)',
+              opacity: 0,
+              pointerEvents: 'none',
+              zIndex: 10,
+              transformOrigin: 'center center',
+            }}
+          >
+            <CardContent proj={proj} />
           </div>
         </div>
       ))}
