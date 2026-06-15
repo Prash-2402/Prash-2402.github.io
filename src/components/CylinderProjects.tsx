@@ -18,29 +18,29 @@ const easeInOutQuad = (x: number): number =>
 const lerp = (a: number, b: number, t: number): number =>
   a + (b - a) * t;
 
-// ─── Responsive Dimensions (Fix 1) ───────────────────────────────────────────
+// ─── Responsive Dimensions (Fix cutoff & mobile lag) ─────────────────────────
 function getCardDimensions() {
   if (typeof window === 'undefined') {
-    return { width: 440, height: 240, N: 10, R: 500, maxArc: 50 };
+    return { width: 440, height: 280, N: 10, R: 500, maxArc: 50 };
   }
   const vw = window.innerWidth;
   const mobile = vw < 640;
-  let width = 440, height = 240;
+  let width = 440, height = 280;
   
   if (mobile) {
-    width = Math.min(vw * 0.85, 320);
-    height = 280;
+    width = Math.min(vw * 0.85, 340);
+    height = 360; // Increased height significantly so Live Demo is never cut
   } else if (vw < 1024) {
     width = 380;
-    height = 260;
+    height = 320;
   }
   
   return {
     width,
     height,
-    N: mobile ? 4 : 10,          // Fix 2A: fewer strips on mobile
-    R: mobile ? 250 : 500,       // Fix 2C: smaller radius
-    maxArc: mobile ? 30 : 50,    // Fix 2C: smaller arc
+    N: mobile ? 1 : 10,          // N=1 on mobile eliminates lag completely (flat pivot)
+    R: mobile ? 250 : 500,       
+    maxArc: mobile ? 25 : 50,    
   };
 }
 
@@ -147,7 +147,8 @@ export const CylinderProjects: React.FC<CylinderProjectsProps> = ({ projects }) 
           return;
         }
 
-        let p = (vh * 0.85 - rect.top) / (vh * 0.45);
+        // Slower animation: increased divisor from 0.45 to 0.6
+        let p = (vh * 0.85 - rect.top) / (vh * 0.6);
         p = Math.max(0, Math.min(1, p));
 
         const p1 = Math.max(0, Math.min(1,  p / 0.6));
@@ -159,17 +160,36 @@ export const CylinderProjects: React.FC<CylinderProjectsProps> = ({ projects }) 
         const baseFacing = isRight ? 180 : -180;
         const finalX = isRight ? finalXAbs : -finalXAbs;
 
-        // Size Transform (Part 2)
+        // Size Transform
         const cardScale = SCALE_MIN + (SCALE_MAX - SCALE_MIN) * e1;
         const groupTX = finalX * e2;
         const groupTY = -arcY * Math.sin(e2 * Math.PI);
 
         // Group transform
         cylinder.style.transform = `translate3d(${groupTX}px, ${groupTY}px, 0) scale(${cardScale})`;
+        
         // Faint opacity when behind
         cylinder.style.opacity = String(0.12 + 0.88 * e1);
 
         const isResting = e1 >= 0.99 && e2 >= 0.99;
+        
+        // Crossfade logic: strips fade out at the very end, solid glass face fades in.
+        // This solves the disjointed blur seams while keeping the 3D rolling curve!
+        const glassFace = document.getElementById(`glass-face-${idx}`);
+        const stripsContainer = document.getElementById(`strips-container-${idx}`);
+        
+        if (glassFace && stripsContainer) {
+          if (e1 > 0.9) {
+            const crossfade = (e1 - 0.9) * 10; // 0 to 1
+            glassFace.style.opacity = String(crossfade);
+            stripsContainer.style.opacity = String(1 - crossfade);
+            glassFace.style.pointerEvents = 'auto';
+          } else {
+            glassFace.style.opacity = '0';
+            stripsContainer.style.opacity = '1';
+            glassFace.style.pointerEvents = 'none';
+          }
+        }
 
         // Phase 1: per-strip cylinder wrap
         for (let i = 0; i < dim.N; i++) {
@@ -249,15 +269,39 @@ export const CylinderProjects: React.FC<CylinderProjectsProps> = ({ projects }) 
               height: `${dim.height}px`,
               transformStyle: 'preserve-3d',
               willChange: 'transform, opacity',
-              transformOrigin: 'center center', // Scale from center
+              transformOrigin: 'center center',
             }}
           >
-            {/* ── STRIPS ── (Fix duplicate render by removing separate glassFace layer) */}
-            {Array.from({ length: dim.N }, (_, i) => {
-              const stripWidth = dim.width / dim.N;
-              return (
-                <div
-                  key={i}
+            {/* ── SOLID GLASS FACE ── Fades in at e1 > 0.9. Has backdrop-filter to blur the SVG line correctly without seams. */}
+            <div
+              id={`glass-face-${idx}`}
+              className="cylinder-glass-face card-content"
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                padding: '1.75rem',
+                boxSizing: 'border-box',
+                background: 'rgba(255,255,255,0.04)',
+                backdropFilter: 'blur(14px)',
+                WebkitBackdropFilter: 'blur(14px)',
+                opacity: 0,
+                pointerEvents: 'none',
+                zIndex: 10,
+              }}
+            >
+              <CardContent proj={proj} />
+            </div>
+
+            {/* ── ANIMATION STRIPS ── (Crossfades out as glass face comes in. No backdrop-filter here to avoid seams). */}
+            <div id={`strips-container-${idx}`} style={{ transformStyle: 'preserve-3d', opacity: 1 }}>
+              {Array.from({ length: dim.N }, (_, i) => {
+                const stripWidth = dim.width / dim.N;
+                return (
+                  <div
+                    key={i}
                   ref={(el) => { stripRefs.current[idx * dim.N + i] = el; }}
                   className="strip"
                   style={{
@@ -273,7 +317,7 @@ export const CylinderProjects: React.FC<CylinderProjectsProps> = ({ projects }) 
                   }}
                 >
                   <div
-                    className="cylinder-glass-face card-content"
+                    className="card-content"
                     style={{
                       position: 'absolute',
                       top: 0,
@@ -282,10 +326,10 @@ export const CylinderProjects: React.FC<CylinderProjectsProps> = ({ projects }) 
                       height: `${dim.height}px`,
                       padding: '1.75rem',
                       boxSizing: 'border-box',
-                      pointerEvents: 'auto', // Real content is clickable
-                      background: 'rgba(255,255,255,0.04)',
-                      backdropFilter: 'blur(14px)',
-                      WebkitBackdropFilter: 'blur(14px)',
+                      pointerEvents: 'none',
+                      background: 'rgba(15, 15, 15, 0.95)', // Solid dark fallback, no blur seams
+                      border: '1px solid rgba(255,255,255,0.09)',
+                      borderRadius: '16px',
                     }}
                   >
                     <CardContent proj={proj} />
@@ -293,7 +337,7 @@ export const CylinderProjects: React.FC<CylinderProjectsProps> = ({ projects }) 
                 </div>
               );
             })}
-
+            </div>
           </div>
         </div>
       ))}
