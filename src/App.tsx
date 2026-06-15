@@ -3,6 +3,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollPath } from './components/ScrollPath';
 import { AnimatedSection } from './components/AnimatedSection';
+import { CylinderProjects } from './components/CylinderProjects';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -293,7 +294,8 @@ export default function App() {
       </nav>
 
       {/* Content pane offset on desktop for vertical nav */}
-      <main className="md:ml-[180px] min-h-screen relative pb-[80px] md:pb-0 z-0">
+      {/* overflow-visible is intentional — 3D translateZ on cylinder cards must not be clipped */}
+      <main className="md:ml-[180px] min-h-screen relative pb-[80px] md:pb-0 z-0" style={{ overflow: 'visible' }}>
         
         {/* Scroll Progress SVG Path Layer */}
         <ScrollPath />
@@ -380,50 +382,19 @@ export default function App() {
           </div>
         </AnimatedSection>
 
-        {/* Projects Section */}
-        <AnimatedSection id="projects" className="container py-24 md:py-32">
-          <h2 className="section-title text-3xl md:text-4xl text-center mb-12 font-bold tracking-tight">
-            <span className="border-b-3 border-[#00ff9c] pb-1">Projects</span>
-          </h2>
-          <div className="projects-grid grid grid-cols-1 md:grid-cols-2 gap-8 px-4">
-            {projectsList.map((proj, idx) => (
-              <div key={idx} className="glass-panel project-card flex flex-col justify-between h-full">
-                <div>
-                  <h3 className="text-xl md:text-2xl font-bold mb-1 tracking-tight text-white select-none">
-                    {proj.title}
-                  </h3>
-                  <p className="text-xs md:text-sm text-gray-400 font-medium mb-3">
-                    {proj.subtitle}
-                  </p>
-                  <div className="project-tags flex flex-wrap gap-2 mb-4">
-                    {proj.tags.map((tag, tIdx) => (
-                      <span
-                        key={tIdx}
-                        className="tag bg-[#00ff9c]/10 text-[#00ff9c] border border-[#00ff9c]/20 px-2 py-0.5 rounded-md text-[10px] md:text-xs font-medium"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  <p className="text-gray-300 text-sm leading-relaxed mb-6 font-light">
-                    {proj.desc}
-                  </p>
-                </div>
-                {proj.link && (
-                  <a
-                    href={proj.link}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="project-link inline-flex items-center text-[#00ff9c] hover:underline text-sm font-semibold mt-auto"
-                  >
-                    Live Demo
-                    <i className="fas fa-external-link-alt ml-1.5 text-xs"></i>
-                  </a>
-                )}
-              </div>
-            ))}
+        {/* Projects Section — uses 3D cylinder-roll scroll effect */}
+        <section id="projects" className="py-24 md:py-32" style={{ overflow: 'visible' }}>
+          <div className="container">
+            <h2 className="section-title text-3xl md:text-4xl text-center mb-4 font-bold tracking-tight">
+              <span className="border-b-3 border-[#00ff9c] pb-1">Projects</span>
+            </h2>
+            <p className="text-center text-gray-400 text-sm mb-0" style={{ marginBottom: 0 }}>
+              Scroll through to explore ↓
+            </p>
           </div>
-        </AnimatedSection>
+          {/* CylinderProjects manages its own scroll listener + rAF loop */}
+          <CylinderProjects projects={projectsList} />
+        </section>
 
         {/* Experience Section */}
         <AnimatedSection id="experience" className="container py-24 md:py-32">
