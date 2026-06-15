@@ -127,7 +127,7 @@ export const CylinderProjects: React.FC<CylinderProjectsProps> = ({ projects }) 
     
     const updateAll = () => {
       const vh = window.innerHeight;
-      const finalXAbs = isMobile ? 50 : 140;
+      const finalXAbs = isMobile ? 0 : 140; // Mobile: 0 prevents it from pushing off-screen
       const arcY = isMobile ? 10 : 20;
       const buffer = vh; // 1 viewport height buffer
       
@@ -182,10 +182,12 @@ export const CylinderProjects: React.FC<CylinderProjectsProps> = ({ projects }) 
           if (e1 > 0.9) {
             const crossfade = (e1 - 0.9) * 10; // 0 to 1
             glassFace.style.opacity = String(crossfade);
+            glassFace.style.visibility = 'visible'; // ADDED: Restores element to render tree
             stripsContainer.style.opacity = String(1 - crossfade);
             glassFace.style.pointerEvents = 'auto';
           } else {
             glassFace.style.opacity = '0';
+            glassFace.style.visibility = 'hidden'; // ADDED: Completely removes backdrop-filter from GPU calculation during scroll
             stripsContainer.style.opacity = '1';
             glassFace.style.pointerEvents = 'none';
           }
@@ -214,16 +216,7 @@ export const CylinderProjects: React.FC<CylinderProjectsProps> = ({ projects }) 
       rafRef.current = null;
     };
 
-    let frameSkip = false;
     const onScroll = () => {
-      // Fix 2E: Throttle scroll updates on mobile to every other frame
-      if (isMobile) {
-        if (frameSkip) {
-          frameSkip = false;
-          return;
-        }
-        frameSkip = true;
-      }
       if (rafRef.current === null) {
         rafRef.current = requestAnimationFrame(updateAll);
       }
