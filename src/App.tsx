@@ -91,7 +91,7 @@ const StarBackground: React.FC = () => {
   }, []);
 
   return (
-    <div id="star-container" className="fixed top-0 left-0 w-full h-full -z-10 pointer-events-none">
+    <div id="star-container" className="fixed top-0 left-0 w-full h-full -z-20 pointer-events-none">
       <canvas ref={canvasRef} />
     </div>
   );
