@@ -1,20 +1,26 @@
 /** @type {import('tailwindcss').Config} */
+const v = name => `rgb(var(--${name}) / <alpha-value>)`
+
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       colors: {
-        accent: {
-          DEFAULT: '#00ff9c',
-          glow: 'rgba(0, 255, 156, 0.6)',
-        },
-        pathCyan: '#00D4FF',
+        bg: v('bg'),
+        surface: v('surface'),
+        ink: v('ink'),
+        muted: v('muted'),
+        line: v('line'),
+        accent: v('accent'),
+        'on-accent': v('on-accent'),
       },
       fontFamily: {
-        outfit: ['Outfit', 'sans-serif'],
+        sans: ['Manrope', 'system-ui', 'sans-serif'],
+        serif: ['"Instrument Serif"', 'Georgia', 'serif'],
+        mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+      },
+      maxWidth: {
+        site: '1200px',
       },
     },
   },

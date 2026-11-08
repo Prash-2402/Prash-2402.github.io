@@ -5,318 +5,195 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Prajwal S Hangaragi | Resume</title>
-
   <style>
-    @page { margin: 10mm; }
-    
+    @page { size: A4; margin: 11mm 12mm; }
+    * { box-sizing: border-box; }
     body {
       margin: 0;
-      padding: 10px;
-      font-family: Inter, Arial, sans-serif;
-      background: #ffffff;
-      color: #111827;
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      color: #141414;
+      background: #fff;
+      font-size: 10.6px;
+      line-height: 1.42;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
     }
+    .page { max-width: 820px; margin: 0 auto; }
+    a { color: inherit; text-decoration: none; }
+    a.u { color: #c93d14; }
 
-    .container {
-      padding: 0;
-      max-width: 850px;
-      margin: auto;
-    }
-
-    h1 {
-      font-size: 26px;
-      margin-bottom: 2px;
-    }
-
-    .sub {
-      font-size: 13px;
-      color: #374151;
-      margin-bottom: 4px;
-    }
-
-    .contact {
-      font-size: 12px;
-      color: #374151;
-    }
-
-    hr {
-      border: none;
-      border-top: 1px solid #e5e7eb;
-      margin: 10px 0;
-    }
+    header { display: flex; align-items: center; gap: 16px; padding-bottom: 10px; border-bottom: 2px solid #141414; }
+    header img { width: 74px; height: 74px; border-radius: 10px; object-fit: cover; object-position: top; }
+    header .who { flex: 1; }
+    h1 { font-size: 25px; margin: 0; letter-spacing: -0.4px; }
+    .title { font-size: 12px; color: #c93d14; font-weight: 600; margin-top: 2px; }
+    .contact { margin-top: 5px; color: #444; font-size: 10.2px; display: flex; flex-wrap: wrap; gap: 3px 12px; }
 
     h2 {
-      font-size: 16px;
-      margin-bottom: 4px;
-      margin-top: 12px;
-      color: #111827;
+      font-size: 11px; text-transform: uppercase; letter-spacing: 1.6px; color: #c93d14;
+      margin: 12px 0 5px; padding-bottom: 3px; border-bottom: 1px solid #e3ded4;
     }
-
-    p {
-      font-size: 12.5px;
-      line-height: 1.4;
-      margin: 4px 0;
-    }
-
-    ul {
-      margin: 4px 0 0 16px;
-    }
-
-    li {
-      font-size: 12.5px;
-      margin-bottom: 4px;
-      line-height: 1.4;
-    }
-
-    .skills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .skill {
-      font-size: 12px;
-      padding: 4px 8px;
-      border-radius: 4px;
-      background: #f3f4f6;
-    }
-
-    .project {
-      padding: 8px 12px;
-      border-radius: 6px;
-      background: #fafafa;
-      margin-bottom: 8px;
-    }
-
-    .muted {
-      color: #6b7280;
-      font-size: 12px;
-      margin-bottom: 2px;
-    }
-
-    .header {
-      display: flex;
-      gap: 15px;
-      align-items: center;
-      flex-wrap: wrap;
-      justify-content: space-between;
-    }
-
-    .photo {
-      width: 90px;
-      height: 100px;
-      object-fit: cover;
-      border-radius: 8px;
-      border: 1px solid #e5e7eb;
-    }
-
-    @media (max-width: 600px) {
-      .header {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-      }
-
-      .photo {
-        margin-top: 10px;
-      }
-    }
+    .item { margin-bottom: 7px; break-inside: avoid; }
+    .row { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+    .row b { font-size: 11.4px; }
+    .meta { color: #555; font-size: 10px; white-space: nowrap; }
+    .sub { color: #444; font-style: italic; }
+    .tech { color: #555; font-size: 9.8px; }
+    ul { margin: 2px 0 0; padding-left: 15px; }
+    li { margin: 1px 0; }
+    p { margin: 2px 0; }
+    .skills { display: grid; grid-template-columns: 150px 1fr; gap: 2px 10px; }
+    .skills dt { font-weight: 700; }
+    .skills dd { margin: 0; color: #333; }
+    .two { display: grid; grid-template-columns: 1fr 1fr; gap: 0 18px; }
   </style>
 </head>
 
 <body>
-  <div class="container">
-
-    <div class="header">
-      <div>
+  <div class="page">
+    <header>
+      <img src="docs/resume-thumb.jpg" alt="Prajwal S Hangaragi">
+      <div class="who">
         <h1>Prajwal S Hangaragi</h1>
-        <div class="sub">B.Tech – Computer Science & Engineering (AI & ML)</div>
+        <div class="title">AI and ML Engineer · Cybersecurity · Autonomous Systems</div>
         <div class="contact">
-          📍 Bangalore, India · 📞 7204557247 · 📧 prajwal.s.2h@gmail.com
+          <span>Bengaluru, India</span>
+          <a href="tel:+917204557247">+91 7204557247</a>
+          <a href="mailto:prajwal.s.2h@gmail.com">prajwal.s.2h@gmail.com</a>
+          <a class="u" href="https://www.linkedin.com/in/prajwal-s-hangaragi1">linkedin.com/in/prajwal-s-hangaragi1</a>
+          <a class="u" href="https://github.com/Prash-2402">github.com/Prash-2402</a>
+          <a class="u" href="https://prash-2402.github.io">prash-2402.github.io</a>
         </div>
       </div>
-
-      <img src="docs/resumepic.png" alt="Prajwal S Hangaragi" class="photo">
-    </div>
-
-    <hr>
+    </header>
 
     <h2>Profile</h2>
-    <p>
-      Computer Science undergraduate specializing in Computer Science Engineering in AI & ML,
-      with hands-on experience building web-based developer tools, integrating automation pipelines,
-      and deploying full-stack applications. Strong interest in backend systems, intelligent tooling,
-      and scalable software solutions.
-    </p>
+    <p>B.Tech Computer Science (AI and ML) student at CHRIST University with honours in Cybersecurity. I build autonomy research platforms, applied AI products and secure software. Former developer intern at HAL and OkCredit Future Founders intern. Hackathon winner and club coordinator who enjoys turning models and algorithms into products people use.</p>
 
-    <h2>Technical Skills</h2>
-    <div class="skills">
-      <div class="skill">Python</div>
-      <div class="skill">Java</div>
-      <div class="skill">JavaScript</div>
-      <div class="skill">React</div>
-      <div class="skill">React Native</div>
-      <div class="skill">Expo</div>
-      <div class="skill">Node.js</div>
-      <div class="skill">Express</div>
-      <div class="skill">MySQL</div>
-      <div class="skill">PostgreSQL</div>
-      <div class="skill">FastAPI</div>
-      <div class="skill">Supabase</div>
-      <div class="skill">Firebase</div>
-      <div class="skill">Gemini AI</div>
-      <div class="skill">Groq AI</div>
-      <div class="skill">LLMs</div>
-      <div class="skill">Prophet</div>
-      <div class="skill">scikit-learn</div>
-      <div class="skill">Whisper API</div>
-      <div class="skill">HTML/CSS</div>
-      <div class="skill">Git &amp; GitHub</div>
-      <div class="skill">CI/CD</div>
-      <div class="skill">Machine Learning</div>
-      <div class="skill">TensorFlow</div>
-      <div class="skill">OpenCV</div>
-      <div class="skill">Flask</div>
-      <div class="skill">EfficientNet</div>
+    <h2>Education</h2>
+    <div class="row"><b>B.Tech Computer Science and Engineering (AI and ML), Honours in Cybersecurity</b><span class="meta">2024 to 2028</span></div>
+    <div class="sub">CHRIST (Deemed to be University), Kengeri Campus, Bengaluru</div>
+
+    <h2>Experience</h2>
+    <div class="item">
+      <div class="row"><b>Club Coordinator, CAADS</b><span class="meta">Jul 2026 to Present · Bengaluru</span></div>
+      <div class="sub">CHRIST University, Department of AI and Data Science Engineering</div>
+      <ul>
+        <li>Coordinate club activities and technical events across AI, data science and emerging technologies with faculty and student teams.</li>
+        <li>Organised the SLAB Hackathon, where builders prototyped self learning AI agents.</li>
+      </ul>
+    </div>
+    <div class="item">
+      <div class="row"><b>Assistant AI Trainer, SIRD</b><span class="meta">Nov 2026 · CHRIST University, Kengeri</span></div>
+      <div class="sub">State Institute of Rural Development</div>
+      <ul>
+        <li>Trained participants in AI over a three day programme and demonstrated practical AI tools for everyday productivity.</li>
+      </ul>
+    </div>
+    <div class="item">
+      <div class="row"><b>Future Founders Intern, OkCredit</b><span class="meta">May 2026 to Jul 2026 · Remote</span></div>
+      <ul>
+        <li>Led ShopIQ, an AI powered kirana management app, from problem discovery to a working product over eight weeks.</li>
+        <li>Validated merchant pain points through field interviews at Bengaluru stores to shape the feature set.</li>
+        <li>Received a letter of recommendation on completion.</li>
+      </ul>
+    </div>
+    <div class="item">
+      <div class="row"><b>Developer Intern, Hindustan Aeronautics Limited</b><span class="meta">Mar 2026 to Apr 2026 · Bengaluru</span></div>
+      <div class="sub">Mission and Combat System Research and Design Centre (MCSRDC)</div>
+      <ul>
+        <li>Worked with C++ and databases with hands on exposure to aerospace engineering and industrial processes.</li>
+      </ul>
     </div>
 
     <h2>Projects</h2>
-
-    <!-- Project - ShopIQ -->
-    <div class="project">
-      <b>ShopIQ — AI-Powered Kirana Management System</b>
-      <p class="muted">Expo · React Native · Supabase · FastAPI · Gemini 1.5 Flash · Prophet · scikit-learn · WhatsApp Business API · Whisper API · PostgreSQL</p>
+    <div class="item">
+      <div class="row"><b>ASTRA · AI-Driven System for Touchdown and Rover Autonomy</b><span class="meta">Private research project</span></div>
+      <div class="tech">Python · FastAPI · PyBullet · PyTorch · stable-baselines3 (PPO) · EKF · React · Three.js · PostgreSQL</div>
       <ul>
-        <li>Developed a full-stack mobile app using Expo + React Native with Supabase backend serving kirana store owners across stock, billing, and udhar (credit) management.</li>
-        <li>Implemented AI demand forecasting using Prophet/scikit-learn to predict weekly inventory needs based on sales history, season, and local events.</li>
-        <li>Built real-time stock tracking with barcode scanning, expiry date alerts, and auto-reorder generation integrated with a supplier comparison module.</li>
-        <li>Designed WhatsApp automation layer sending weekly AI-generated business summaries and overdue udhar reminders to merchants in plain language.</li>
-        <li>Integrated voice input in Hindi and Kannada using Whisper API allowing owners to update stock and sales without typing.</li>
-        <li>Engineered profit analytics dashboard separating revenue from actual profit with dead stock detection, loss breakdown, and GST auto-tagging.</li>
-        <li>Conducted merchant field interviews at Mathaji Mini Market, Bengaluru to validate problem statements and refine the feature set.</li>
-        <li>Built end-to-end prototype at <b>OkCredit Finternship</b> — 8-week product hackathon — from problem discovery to working prototype.</li>
+        <li>Research platform for planetary autonomy with 6-DOF Mars and lunar powered descent, hazard aware site selection and autonomous diversion.</li>
+        <li>Rover stack with EKF state estimation, traversability cost maps, A* replanning, pure pursuit control and energy aware routing.</li>
+        <li>Fault detection and classification for sensor dropout, terrain misclassification, power drain and actuator degradation, with CUSUM drift detection for a sensor that lies.</li>
+        <li>Independent safety supervisor and matched seed experiments with McNemar and Wilcoxon tests against a rule based baseline. Evolved from my AETHER-LAND project (PID vs MPC vs PPO landing).</li>
       </ul>
     </div>
-
-    <!-- Project - PropagandaLens -->
-    <div class="project">
-      <b>PropagandaLens — Multilingual Propaganda & Rhetorical Manipulation Detection</b>
-      <p class="muted">Python · FastAPI · Groq AI · Helsinki-NLP · React · PDF Export</p>
+    <div class="item">
+      <div class="row"><b>ZeroRot · Post Harvest Loss Prevention Digital Twin</b><a class="meta u" href="https://zerorot.vercel.app">zerorot.vercel.app</a></div>
+      <div class="tech">FastAPI · React · Three.js · Groq AI · Open-Meteo · OSRM · OpenStreetMap</div>
       <ul>
-        <li>Developed a multilingual AI tool to detect 8 rhetorical techniques (Fear Appeal, False Dilemma, Bandwagon, etc.) in English and Hindi.</li>
-        <li>Integrated Helsinki-NLP for automatic translation and Groq-powered interactive chat for explainable AI findings.</li>
-        <li>Architected a temporal timeline to analyze the evolution of manipulation across different time periods.</li>
-        <li>Implemented high-fidelity PDF report generation for detailed manipulation analysis.</li>
-        <li>
-          <a href="https://propaganda-lens.vercel.app/" target="_blank">
-            https://propaganda-lens.vercel.app/
-          </a>
-        </li>
+        <li>Phone app synced with a 3D simulation that follows a crop from godown storage to mandi, using live weather and real road routes.</li>
+        <li>Spoilage prediction, sell or store recommendations, simulated AI grading and truck tracking with reroutes. 67 automated tests.</li>
       </ul>
     </div>
-
-    <!-- Project 0 - UnMask -->
-    <div class="project">
-      <b>UnMask — AI Deepfake Detection System</b>
-      <p class="muted">Python · TensorFlow · EfficientNetB0 · Flask · OpenCV · MTCNN · Grad-CAM</p>
+    <div class="item">
+      <div class="row"><b>ShopIQ · AI Powered Kirana Management System</b><a class="meta u" href="https://github.com/Prash-2402/ShopIQ">github.com/Prash-2402/ShopIQ</a></div>
+      <div class="tech">React Native · Expo · Supabase · FastAPI · Gemini · Prophet · scikit-learn · Whisper API · WhatsApp Business API</div>
       <ul>
-        <li>Built a real-time deepfake detection system using an ensemble of EfficientNetB0 trained on FaceForensics++ and Celeb-DF v2, achieving <b>94–96% accuracy</b>.</li>
-        <li>Engineered an MTCNN-based face extraction pipeline with multi-run inference averaging, reducing false-positive rates on borderline images.</li>
-        <li>Developed a Flask REST API supporting image and video analysis (frame-by-frame scoring with timestamp output), deployed with CORS and 2 GB file support.</li>
-        <li>Delivered the full working system end-to-end at <b>FOOBAR 10.0 Hackathon</b> (Cybersecurity Domain) within the competition's time constraint.</li>
-        <li>
-          <a href="https://unmask-nan8.onrender.com/" target="_blank">
-            https://unmask-nan8.onrender.com/
-          </a>
-        </li>
+        <li>Full stack mobile app for stock, billing and udhar with Prophet demand forecasting and barcode based stock tracking.</li>
+        <li>Voice input in Hindi and Kannada, WhatsApp business summaries and a profit dashboard with dead stock detection and GST tagging.</li>
       </ul>
     </div>
-
-    <!-- Project 1 removed -->
-
-    <!-- Project 2 -->
-    <div class="project">
-      <b>KAPP - AI Career Map Navigator</b>
-      <p class="muted">Python · Gemini 2.5 AI · React · Multi-Agent System</p>
+    <div class="item">
+      <div class="row"><b>UnMask · AI Deepfake Detection</b><a class="meta u" href="https://unmask-nan8.onrender.com/">unmask-nan8.onrender.com</a></div>
+      <div class="tech">TensorFlow · EfficientNetB0 · MTCNN · OpenCV · Flask · Grad-CAM</div>
       <ul>
-        <li>Architected a multi-agent AI system (Skill/Role/Roadmap Agents) to analyze resumes and generate personalized
-          career roadmaps.</li>
-        <li>Built a modern React frontend with glassmorphism effects and integrated Gemini 2.5 Flash for FAANG-level
-          evaluations.</li>
-        <li>Engineered a robust backend with PDF parsing pipelines to extract 100+ technical skills from complex resume
-          layouts.</li>
-        <li>
-          <a href="https://kapp-rho.vercel.app/" target="_blank">
-            https://kapp-rho.vercel.app/
-          </a>
-        </li>
+        <li>Ensemble EfficientNetB0 trained on FaceForensics++ and Celeb-DF v2 reaching 94 to 96 percent accuracy. Won FOOBAR 10.0 (Cybersecurity).</li>
       </ul>
     </div>
-
-    <!-- Project 3 -->
-    <div class="project">
-      <b>Python Code Review Tool (Web Application)</b>
-      <p class="muted">Backend · JavaScript · GitHub Actions · Deployment · Full-stack</p>
+    <div class="item">
+      <div class="row"><b>PropagandaLens · Multilingual Manipulation Detector</b><a class="meta u" href="https://propaganda-lens.vercel.app/">propaganda-lens.vercel.app</a></div>
+      <div class="tech">Python · FastAPI · Groq AI · Helsinki-NLP · React</div>
       <ul>
-        <li>Designed and built a static code analysis tool using Python AST.</li>
-        <li>Developed a clean web interface for real-time code analysis.</li>
-        <li>Integrated GitHub Actions to automate code reviews.</li>
-        <li>Deployed as a public website with plans for expansion.</li>
-        <li>
-          <a href="https://prash-2402.github.io/code-review-tool/" target="_blank">
-            https://prash-2402.github.io/code-review-tool/
-          </a>
-        </li>
+        <li>Detects 8 rhetorical techniques in English and Hindi with temporal analysis, explainable AI chat and PDF reports.</li>
       </ul>
     </div>
-
-    <!-- Project 4 -->
-    <div class="project">
-      <b>Fitness & TDEE Calculator (Web Application)</b>
-      <p class="muted">Frontend · JavaScript · Health Calculations · UI Logic · Deployment</p>
-      <ul>
-        <li>Built an interactive calculator to compute TDEE using user inputs (height, weight, age, gender, activity
-          level).</li>
-        <li>Implemented calorie deficit/surplus logic based on fitness goals (cut, maintain, bulk).</li>
-        <li>Designed a responsive UI for real-time calculation and user-friendly experience.</li>
-        <li>Deployed as a public web application.</li>
-        <li>
-          <a href="https://prash-2402.github.io/fitness-calculator/" target="_blank">
-            https://prash-2402.github.io/fitness-calculator/
-          </a>
-        </li>
-      </ul>
+    <div class="two">
+      <div class="item">
+        <div class="row"><b>Port Scanner and Vulnerability Reporter</b></div>
+        <div class="tech">Python · Flask · Multithreading · SSE</div>
+        <p>200 thread TCP scanner with live streaming UI, service mapping and CVE flags for high risk ports. <a class="u" href="https://github.com/Prash-2402/Port">GitHub</a></p>
+      </div>
+      <div class="item">
+        <div class="row"><b>CampusFlow AI+</b></div>
+        <div class="tech">React · Node.js · Supabase · Groq · RAG · n8n</div>
+        <p>Hackathon student platform with RAG over notes, AI quizzes, mock interviews and calendar automations. <a class="u" href="https://campus-flow-self-three.vercel.app">Live</a></p>
+      </div>
+      <div class="item">
+        <div class="row"><b>CleanBrowse</b></div>
+        <div class="tech">Chrome Extension (MV3) · JavaScript · Python ML</div>
+        <p>Kid safe browsing extension that blocks unsafe sites and softens unsafe text using a custom classifier. <a class="u" href="https://github.com/Prash-2402/CleanBrowse">GitHub</a></p>
+      </div>
+      <div class="item">
+        <div class="row"><b>KAPP · AI Career Navigator</b></div>
+        <div class="tech">Python · Gemini 2.5 · React · Multi Agent</div>
+        <p>Multi agent system that analyses resumes and generates personal career roadmaps. <a class="u" href="https://kapp-rho.vercel.app/">Live</a></p>
+      </div>
     </div>
 
-    <h2>Achievements &amp; Hackathons</h2>
-    <div class="project">
-      <b>OkCredit Finternship — ShopIQ (2025)</b>
-      <p class="muted">8-week product hackathon · React Native · Supabase · AI/ML</p>
-      <ul>
-        <li>Built an AI-powered kirana management app from scratch over an 8-week fintech product hackathon.</li>
-        <li>Conducted real merchant interviews at a local Bengaluru kirana store to validate pain points and shape the feature roadmap.</li>
-        <li>Shipped a working prototype in React Native + Supabase covering inventory, billing, udhar, demand forecasting, and WhatsApp automation.</li>
-      </ul>
-    </div>
-    <div class="project">
-      <b>FOOBAR 10.0 Hackathon — UnMask (Cybersecurity Domain)</b>
-      <p class="muted">TensorFlow · EfficientNetB0 · Flask · OpenCV</p>
-      <ul>
-        <li>Delivered an end-to-end deepfake detection system achieving 94–96% accuracy within the competition's time constraint.</li>
-      </ul>
-    </div>
+    <h2>Achievements</h2>
+    <ul>
+      <li><b>Winner</b>, FOOBAR 10.0 Hackathon, Cybersecurity domain (24 hours) with UnMask.</li>
+      <li><b>3rd Place</b>, AfterHours 1.0, DBIT Bengaluru (Oct 2026). Top 4 of 54 inter college teams in a 24 hour hackathon.</li>
+      <li><b>Runner Up</b>, CodeStorm 2026 Karnataka Edition, Department of ADSE at CHRIST University with UNILOX.</li>
+      <li><b>15+ hackathons</b> across AI, cybersecurity and product, from 24 hour sprints to 8 week programmes.</li>
+    </ul>
 
-    <h2>Education</h2>
-    <p>
-      <b>B.Tech in Computer Science & Engineering (AI & ML)</b><br>
-      Christ University, Bangalore (Kengeri Campus)<br>
-      2024 – 2028
-    </p>
+    <h2>Certifications</h2>
+    <ul>
+      <li>AWS Academy Graduate, Cloud Foundations · Amazon Web Services · Sep 2026 · <a class="u" href="https://www.credly.com/go/091VpuiW">Credential</a></li>
+      <li>Getting Started with Generative AI · IBM · Oct 2025 · <a class="u" href="https://www.credly.com/go/iyNiZIsw">Credential</a></li>
+      <li>Artificial Intelligence Fundamentals · IBM · Sep 2025 · <a class="u" href="https://www.credly.com/badges/c1b5cba5-7a1b-460f-bd23-c0aa5be045fe">Credential</a></li>
+    </ul>
 
-    <h2>Interests</h2>
-    <p>
-      Backend Engineering · Intelligent Developer Tools · Applied AI Systems · Automation · Scalable Web Applications
-    </p>
+    <h2>Technical Skills</h2>
+    <dl class="skills">
+      <dt>Languages</dt><dd>Python, C++, Java, JavaScript, TypeScript, SQL, HTML and CSS</dd>
+      <dt>AI and ML</dt><dd>PyTorch, TensorFlow, scikit-learn, Reinforcement Learning (PPO), OpenCV, LLMs, Generative AI, Gemini, Groq, Prophet, Whisper</dd>
+      <dt>Robotics and Autonomy</dt><dd>State estimation (EKF), path planning (A*), fault detection, PyBullet, Gymnasium</dd>
+      <dt>Web and Backend</dt><dd>React, React Native, Expo, Node.js, Express, FastAPI, Flask, Three.js</dd>
+      <dt>Data and Cloud</dt><dd>PostgreSQL, MySQL, Supabase, Firebase, AWS, Git, Linux, Docker</dd>
+      <dt>Leadership</dt><dd>Project planning, team and program coordination, club management, AI training</dd>
+    </dl>
 
   </div>
 </body>

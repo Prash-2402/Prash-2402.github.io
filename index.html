@@ -5,18 +5,26 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <!-- SEO Meta Tags -->
+
   <title>Prajwal S Hangaragi | Portfolio</title>
-  <meta name="description" content="Prajwal S Hangaragi's Computer Science Portfolio. Specializing in AI/ML, Cybersecurity, Web Development, and Automation." />
-  <meta name="keywords" content="Prajwal S Hangaragi, Portfolio, AI, Machine Learning, Cybersecurity, Web Development, React, React Native" />
-  
-  <!-- Google Fonts: Outfit (modern/tech) -->
+  <meta name="description" content="Prajwal S Hangaragi. AI and ML engineer and cybersecurity enthusiast building autonomy research, AI products and secure software." />
+  <meta name="keywords" content="Prajwal S Hangaragi, Portfolio, AI, Machine Learning, Cybersecurity, Robotics, Autonomy, React, FastAPI" />
+
+  <!-- Set the theme before paint so there is no flash -->
+  <script>
+    try {
+      var t = localStorage.getItem('theme')
+      if (!t) t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+      document.documentElement.setAttribute('data-theme', t)
+    } catch (e) {
+      document.documentElement.setAttribute('data-theme', 'light')
+    }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
-  
-  <!-- FontAwesome for Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
