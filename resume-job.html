@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Prajwal S Hangaragi | Resume</title>
+  <!-- One page, ATS friendly version for job applications. Print to PDF at A4. -->
+  <style>
+    @page { size: A4; margin: 9mm 11mm; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Calibri, "Segoe UI", Arial, sans-serif; color: #111; font-size: 9.2pt; line-height: 1.26; }
+    a { color: #111; text-decoration: none; }
+    h1 { font-size: 19pt; margin: 0; text-align: center; letter-spacing: 0.3px; }
+    .contact { text-align: center; margin-top: 3px; font-size: 8.7pt; }
+    .contact span, .nw { white-space: nowrap; }
+    .contact span + span::before { content: "  |  "; white-space: pre; color: #777; }
+    h2 { font-size: 10.5pt; text-transform: uppercase; letter-spacing: 1px; margin: 8px 0 3px; padding-bottom: 1px; border-bottom: 1px solid #111; }
+    .row { display: flex; justify-content: space-between; gap: 8px; }
+    .row b { font-size: 10pt; }
+    .r { white-space: nowrap; }
+    .sub { font-style: italic; }
+    ul { margin: 1px 0 3px; padding-left: 14px; }
+    li { margin: 0.5px 0; }
+    p { margin: 1px 0; }
+    .item { margin-bottom: 3px; }
+  </style>
+</head>
+<body>
+  <h1>PRAJWAL S HANGARAGI</h1>
+  <div class="contact">
+    <span>Bengaluru, India</span><span>+91 7204557247</span><span><a href="mailto:prajwal.s.2h@gmail.com">prajwal.s.2h@gmail.com</a></span><span><a href="https://www.linkedin.com/in/prajwal-s-hangaragi1">linkedin.com/in/prajwal-s-hangaragi1</a></span><span><a href="https://github.com/Prash-2402">github.com/Prash-2402</a></span><span><a href="https://prash-2402.github.io">prash-2402.github.io</a></span>
+  </div>
+
+  <h2>Summary</h2>
+  <p>B.Tech Computer Science (AI and ML) student with honours in Cybersecurity, with internships at Hindustan Aeronautics Limited and OkCredit. Builds applied AI products, autonomy research systems and secure software using Python, PyTorch, FastAPI and React. Winner of FOOBAR 10.0 with 3 podium finishes across 15+ hackathons.</p>
+
+  <h2>Education</h2>
+  <div class="row"><b>CHRIST (Deemed to be University), Bengaluru</b><span class="r">2024 to 2028</span></div>
+  <div class="row"><span class="sub">B.Tech in Computer Science and Engineering (AI and ML), Honours in Cybersecurity</span><span class="r">Kengeri Campus</span></div>
+
+  <h2>Experience</h2>
+  <div class="item">
+    <div class="row"><b>OkCredit · Future Founders Intern</b><span class="r">May 2026 to Jul 2026 · Remote</span></div>
+    <ul>
+      <li>Led ShopIQ, an AI powered kirana management app, from problem discovery to a working product in 8 weeks.</li>
+      <li>Built Prophet based demand forecasting, voice inventory updates in Hindi and Kannada (Whisper API) and WhatsApp business summaries.</li>
+      <li>Validated merchant pain points through field interviews at Bengaluru stores. Received a letter of recommendation.</li>
+    </ul>
+  </div>
+  <div class="item">
+    <div class="row"><b>Hindustan Aeronautics Limited · Developer Intern</b><span class="r">Mar 2026 to Apr 2026 · Bengaluru</span></div>
+    <ul>
+      <li>Interned at the Mission and Combat System Research and Design Centre (MCSRDC), working with C++ and databases in an aerospace engineering environment.</li>
+    </ul>
+  </div>
+
+  <h2>Projects</h2>
+  <div class="item">
+    <div class="row"><b>ASTRA · Autonomy Platform for Planetary Landing and Rovers</b><span class="r">Python, PyBullet, PyTorch, FastAPI, React</span></div>
+    <ul>
+      <li>Built 6-DOF Mars and lunar landing simulation with hazard aware site selection and autonomous diversion.</li>
+      <li>Rover autonomy with EKF state estimation, A* replanning on traversability cost maps, CUSUM sensor drift detection and an independent safety supervisor.</li>
+      <li>Evaluated adaptive control against a rule based baseline using matched seed trials with McNemar and Wilcoxon tests. PPO training pipeline included.</li>
+    </ul>
+  </div>
+  <div class="item">
+    <div class="row"><b>UnMask · AI Deepfake Detection</b> <span class="r"><a href="https://unmask-nan8.onrender.com/">unmask-nan8.onrender.com</a></span></div>
+    <ul>
+      <li>Ensemble EfficientNetB0 with MTCNN face extraction trained on FaceForensics++ and Celeb-DF v2, reaching 94 to 96 percent accuracy. Flask API for image and video analysis. Won FOOBAR 10.0 (Cybersecurity).</li>
+    </ul>
+  </div>
+  <div class="item">
+    <div class="row"><b>ZeroRot · Post Harvest Digital Twin</b> <span class="r"><a href="https://zerorot.vercel.app">zerorot.vercel.app</a></span></div>
+    <ul>
+      <li>FastAPI backend with a React and Three.js 3D world synced to a phone app. Live weather, real road routing (OSRM), spoilage prediction and sell or store advice. 67 automated tests.</li>
+    </ul>
+  </div>
+  <div class="item">
+    <div class="row"><b>PropagandaLens · Multilingual Manipulation Detector</b> <span class="r"><a href="https://propaganda-lens.vercel.app/">propaganda-lens.vercel.app</a></span></div>
+    <ul>
+      <li>Detects 8 rhetorical manipulation techniques in English and Hindi using Groq LLMs and Helsinki-NLP, with explainable AI chat and PDF reports.</li>
+    </ul>
+  </div>
+  <div class="item">
+    <div class="row"><b>Port Scanner and Vulnerability Reporter</b> <span class="r"><a href="https://github.com/Prash-2402/Port">github.com/Prash-2402/Port</a></span></div>
+    <ul>
+      <li>Multithreaded (200 threads) TCP scanner in Python and Flask with live streaming results, service mapping, CVE flags for high risk ports and rate limiting.</li>
+    </ul>
+  </div>
+
+  <h2>Leadership</h2>
+  <div class="item">
+    <div class="row"><b>Club Coordinator · CAADS, CHRIST University</b><span class="r">Jul 2026 to Present</span></div>
+    <ul><li>Run technical events across AI and data science. Organised the SLAB Hackathon on self learning AI agents.</li></ul>
+  </div>
+  <div class="item">
+    <div class="row"><b>Assistant AI Trainer · State Institute of Rural Development (SIRD)</b><span class="r">Nov 2026</span></div>
+    <ul><li>Trained participants in practical AI tools over a three day programme.</li></ul>
+  </div>
+
+  <h2>Achievements</h2>
+  <ul>
+    <li><b>Winner</b>, FOOBAR 10.0 Hackathon, Cybersecurity domain. <b>3rd Place</b>, AfterHours 1.0 (Top 4 of 54 teams). <b>Runner Up</b>, CodeStorm 2026 Karnataka Edition.</li>
+    <li>Participated in 15+ hackathons across AI, cybersecurity and product.</li>
+  </ul>
+
+  <h2>Skills</h2>
+  <p><b>Languages:</b> Python, C++, Java, JavaScript, TypeScript, SQL</p>
+  <p><b>AI and ML:</b> PyTorch, TensorFlow, scikit-learn, Reinforcement Learning (PPO), OpenCV, LLMs, RAG, Prophet</p>
+  <p><b>Robotics:</b> State Estimation (EKF), Path Planning (A*), Fault Detection, PyBullet, Gymnasium</p>
+  <p><b>Web and Cloud:</b> FastAPI, Flask, Node.js, React, React Native, PostgreSQL, Supabase, AWS, Docker, Git, Linux</p>
+
+  <h2>Certifications</h2>
+  <p><span class="nw">AWS Academy Graduate, Cloud Foundations (2026)</span> · <span class="nw">IBM Getting Started with Generative AI (2025)</span> · <span class="nw">IBM AI Fundamentals (2025)</span></p>
+</body>
+</html>
