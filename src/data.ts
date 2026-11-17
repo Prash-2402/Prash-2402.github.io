@@ -34,8 +34,8 @@ export const about = {
   ],
   stats: [
     { n: 11, suffix: '', label: 'Projects shipped' },
-    { n: 15, suffix: '', label: 'Hackathons' },
-    { n: 3, suffix: '', label: 'Podium finishes' },
+    { n: 16, suffix: '', label: 'Hackathons' },
+    { n: 4, suffix: '', label: 'Podium finishes' },
     { n: 3, suffix: '', label: 'Certifications' },
   ],
 }
@@ -298,9 +298,17 @@ export const achievements = [
     cta: 'Read post',
   },
   {
-    result: '15+',
+    result: 'Runner Up',
+    event: 'IEEE GeoAI Hackathon 2026',
+    detail: 'Team Code X Duty. Hosted by the Department of AI and Data Science Engineering, CHRIST University, Kengeri.',
+    href: profile.activity,
+    cta: 'See on LinkedIn',
+  },
+  {
+    result: '16+',
     event: 'Hackathons participated',
-    detail: 'Competed in 15 plus hackathons across AI, cybersecurity and product, from 24 hour sprints to 8 week programmes.',
+    detail: 'Competed in 16 plus hackathons across AI, cybersecurity and product, from 24 hour sprints to 8 week programmes. 4 podium finishes so far.',
+    wide: true,
     href: profile.activity,
     cta: 'See my journey',
   },

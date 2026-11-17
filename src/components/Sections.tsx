@@ -316,7 +316,7 @@ export function Recognition() {
             href={a.href}
             target="_blank"
             rel="noreferrer"
-            className="reveal card group relative overflow-hidden p-8 hover:border-accent"
+            className={`reveal card group relative overflow-hidden p-8 hover:border-accent ${'wide' in a && a.wide ? 'md:col-span-2' : ''}`}
           >
             <div className="absolute inset-0 origin-bottom scale-y-0 bg-accent transition-transform duration-500 ease-out group-hover:scale-y-100" />
             <div className="relative transition-colors duration-300 group-hover:text-on-accent">
